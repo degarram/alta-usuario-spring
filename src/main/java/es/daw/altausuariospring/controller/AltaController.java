@@ -1,5 +1,6 @@
 package es.daw.altausuariospring.controller;
 
+import es.daw.altausuariospring.service.AltaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +11,11 @@ import java.util.List;
 
 @Controller
 public class AltaController {
-
-    private final OpcionesService opcionesService;
+    private final AltaService service;
 
     // Inyección por constructor: NO hacemos new OpcionesService(), nos lo da Spring
-    public AltaController(OpcionesService opcionesService) {
-        this.opcionesService = opcionesService;
+    public AltaController(AltaService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
@@ -26,6 +26,8 @@ public class AltaController {
     @GetMapping("/alta")
     public String mostrarFormulario(Model model) {
         // 1. Añadir al modelo las listas de tecnologías y niveles
+        model.addAttribute("tecnologias", service.getTecnologias());
+        model.addAttribute("ListaNiveles", service.getNiveles());
         // 2. Devolver el nombre de la vista
         return "formulario";
     }
@@ -38,6 +40,6 @@ public class AltaController {
                                      Model model) {
         // 1. Si nombre está vacío → mensajeError + datos introducidos + listas → "formulario"
         // 2. Si no → datos al modelo → "confirmacion"
-        return
+        return "confirmacion";
     }
 }
