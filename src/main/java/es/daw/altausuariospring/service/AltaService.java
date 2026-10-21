@@ -1,5 +1,6 @@
 package es.daw.altausuariospring.service;
 
+
 import es.daw.altausuariospring.exception.FicheroNoEncontradoException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,19 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-
+/**
+ * Lógica de negocio
+ *
+ * El controlador NO sabe si la lista de tecnologías viene de una BD, de una api rest externo o de un
+ * fichero de txt (nuestro caso)
+ */
 @Service
 public class AltaService {
+
     public List<String> getTecnologias() {
         return leerFichero("datos/tecnologias.txt");
     }
-
-    public List<String> getNiveles() {
+    public List<String> getNiveles()     {
         return leerFichero("datos/niveles.txt");
     }
 
@@ -33,4 +39,5 @@ public class AltaService {
             throw new FicheroNoEncontradoException("Error leyendo " + ruta, e);
         }
     }
+
 }

@@ -19,15 +19,23 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" th:value="${email}" required>
 
-        <label for="tecnologia">Tecnología</label>
+        <label for="tecnologia">Tecnología con la que más te gustaria trabajar</label>
         <select id="tecnologia" name="tecnologia">
-            <option th:each="t : ${tecnologias}" th:value="${t}" th:text="${t}" th:selected="${t == tecnologia}">Tecnología</option>
+            <!-- th:each sustituye a <c:forEach>. th:selected mantiene la opción elegida si volvemos con error -->
+            <option th:each="t : ${tecnologias}"
+                    th:value="${t}"
+                    th:text="${t}"
+                    th:selected="${t == tecnologia}">Tecnología</option>
         </select>
 
         <label for="nivel">Nivel (puedes marcar varios)</label>
         <select id="nivel" name="nivel" multiple>
             <!-- Pista: #lists.contains(lista, elemento) -->
-            <option th:each="n : ${listaNiveles}" th:value="${n}" th:text="${n}" th:selected="${nivelesSeleccionados != null and #lists.contains(nivelesSeleccionados,n)}">Nivel</option>
+            <option th:each="n : ${listaNiveles}"
+                    th:value="${n}"
+                    th:text="${n}"
+                    th:selected="${nivelesSeleccionados != null
+                    and #lists.contains(nivelesSeleccionados, n)}" >Nivel</option>
         </select>
 
         <button type="submit">Enviar</button>
