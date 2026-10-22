@@ -6,11 +6,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -38,22 +40,22 @@ public class AltaValidationController {
     //@GetMapping("/alta-validacion")
     @GetMapping
     public String mostrarFormulario(Model model) {
-        model.addAttribute("usuario",new UsuarioDto());
+        model.addAttribute("usuario", new UsuarioDto());
         return "formulario-validacion";
     }
 
 
     @PostMapping
     public String procesarFormulario(
-                                        @Valid @ModelAttribute("usuario") UsuarioDto usuario,
-                                        // BindingResult guarda los errores de eso objeto.
-                                        // Tiene que ir justo después del @ModelAttribute
-                                        // Si usamos @Valid y hay errores de validación y no ponemos BindingResult,
-                                        // Spring lanza error 400 (MethodArgumentNotValidExcepcion)
-                                        BindingResult bindingResult
-                                    ) {
+            @Valid @ModelAttribute("usuario") UsuarioDto usuario,
+            // BindingResult guarda los errores de eso objeto.
+            // Tiene que ir justo después del @ModelAttribute
+            // Si usamos @Valid y hay errores de validación y no ponemos BindingResult,
+            // Spring lanza error 400 (MethodArgumentNotValidExcepcion)
+            BindingResult bindingResult
+    ) {
 
-        LOG.info("Alta recibida (Bean Validation): {}",usuario);
+        LOG.info("Alta recibida (Bean Validation): {}", usuario);
 
         if (bindingResult.hasErrors()) {
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Lógica de negocio
- *
+ * <p>
  * El controlador NO sabe si la lista de tecnologías viene de una BD, de una api rest externo o de un
  * fichero de txt (nuestro caso)
  */
@@ -23,7 +23,8 @@ public class AltaService {
     public List<String> getTecnologias() {
         return leerFichero("datos/tecnologias.txt");
     }
-    public List<String> getNiveles()     {
+
+    public List<String> getNiveles() {
         return leerFichero("datos/niveles.txt");
     }
 

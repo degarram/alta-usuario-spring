@@ -27,7 +27,7 @@ public class AltaController {
     // ------------ INYECCIÓN DE DEPENDENCIAS POR CONSTRUCTOR -------------------------
     // RAZONES POR LAS QUE USAR INYECCIÓN POR CONSTRUCTOR:
     // 1. Cuando Spring carga el controlador, sabe por constructor las dependencias que tiene el controlador.
-    // 2. No necesito Spring. En un test unitario basta con pasar la dependica, por ejemplo un mock:
+    // 2. No necesito Spring. En un test unitario basta con pasar la dependencia, por ejemplo un mock:
     // AltaController c = new AltaController(mockService);
 
     // Una vez instanciado no cambia. Es inmutable
@@ -42,20 +42,21 @@ public class AltaController {
     public AltaController(AltaService service) {
         this.service = service;
     }
-    // ----------------------------------------------------------
-
-//    @GetMapping("/")
-//    public String inicio() {
-//        return "index";              // → templates/index.html
-//    }
+    /*
+ ----------------------------------------------------------
+    @GetMapping("/")
+    public String inicio() {
+        return "index";              // → templates/index.html
+    }
+*/
 
     @GetMapping("/alta")
     public String mostrarFormulario(Model model) {
         // 1. Añadir al modelo las listas de tecnologías y niveles
-        model.addAttribute("listaNiveles",service.getNiveles());
-        LOG.info("lista de niveles: {} ",service.getNiveles());
-        model.addAttribute("tecnologias",service.getTecnologias());
-        LOG.info("lista de tecnologias: {} ",service.getTecnologias());
+        model.addAttribute("listaNiveles", service.getNiveles());
+        LOG.info("lista de niveles: {} ", service.getNiveles());
+        model.addAttribute("tecnologias", service.getTecnologias());
+        LOG.info("lista de tecnologias: {} ", service.getTecnologias());
 
         // 2. Devolver el nombre de la vista
         return "formulario"; // NO es un endpoint, es el nombre del template de thymeleaf
@@ -71,17 +72,17 @@ public class AltaController {
         // 1. RECOGER LOS VALORES.... ESO LO HACE AUTOMÁTICAMENTE SPRING CON @RequestParam
 
         // 2. VALIDACIONES...Si nombre está vacío → mensajeError + datos introducidos + listas → "formulario"
-        if ( nombre.isBlank()){
+        if (nombre.isBlank()) {
             model.addAttribute("mensajeError", "El nombre es obligatorio");
 
             // Queremos mantener los datos que el usuario haya rellenado en el formulario...
-            model.addAttribute("listaNiveles",service.getNiveles());
-            model.addAttribute("tecnologias",service.getTecnologias()); // para cargar los options del desplegable
+            model.addAttribute("listaNiveles", service.getNiveles());
+            model.addAttribute("tecnologias", service.getTecnologias()); // para cargar los options del desplegable
             model.addAttribute("nombre", nombre);
             model.addAttribute("email", email);
-            model.addAttribute("tecnologia",tecno); // lo usamos para hacer selected del único valor de la lista monoselección de tecnologías
+            model.addAttribute("tecnologia", tecno); // lo usamos para hacer selected del único valor de la lista monoselección de tecnologías
 
-            model.addAttribute("nivelesSeleccionados",niveles); // lo usaremos para hacer selected de los options de la lista de niveles
+            model.addAttribute("nivelesSeleccionados", niveles); // lo usaremos para hacer selected de los options de la lista de niveles
 
             return "formulario"; // nombre de la vista...
 
@@ -90,9 +91,9 @@ public class AltaController {
         // 3. PASAMOS INFORMACIÓN A LA VIST. Si no → datos al modelo → "confirmacion"
         model.addAttribute("nombre", nombre);
         model.addAttribute("email", email);
-        model.addAttribute("tecnologia",tecno); // lo usamos para hacer selected del único valor de la lista monoselección de tecnologías
+        model.addAttribute("tecnologia", tecno); // lo usamos para hacer selected del único valor de la lista monoselección de tecnologías
 
-        model.addAttribute("niveles",niveles);
+        model.addAttribute("niveles", niveles);
         return "confirmacion"; // FORWARD A LA VISTA
     }
 }

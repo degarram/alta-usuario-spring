@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
-
 /**
  * Spring detecta esta clase. Hay un @ComponentScan.... y aplica sus @ExceptionHandler
  */

@@ -2,9 +2,11 @@ package es.daw.altausuariospring.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +18,18 @@ import java.util.List;
 @ToString
 public class UsuarioDto {
 
-    @NotBlank
-    @Size(min = 3, max = 10)
+    //    @NotBlank(message = "Majete, no puede estar vacío el nombre!")
+    //    @Size(min = 3, max = 10, message = "El nombre debe tener al menos {min} caracteres y {max} caracteres como máximo")
     //@Pattern('')
+    @NotBlank(message = "{usuario.nombre.obligatorio}")
+    @Size(min = 3, max = 10, message = "{usuario.nombre.tamano}")
     private String nombre;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "{usuario.email.obligatorio}")
+    @Email(message = "{usuario.email.formato}")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "{usuario.tecnologia.obligatoria}")
     private String tecnologia;
 
     private List<String> niveles = new ArrayList<>();
